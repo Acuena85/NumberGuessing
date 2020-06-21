@@ -6,62 +6,90 @@ namespace NumberGuessing
     {
         public static void Main(string[] args)
         {
-            //Some variables needed
-            var MaxValue = 101; //Variable to hold the max value
-            var intnrToGuess = new Random().Next(MaxValue); //Start with a random number
+            // Some variables the game need
+            // Variable to store the max value that gets generated
+            var MaxValue = 101;
 
-            WriteWelcome(MaxValue); //Write the welcome text to the console
-
-            //For debug purposes
-            //Console.WriteLine($"The number became: {intnrToGuess}");
-
+            // Start with a random number and store it in intnrToGuess
+            // Use MaxValue to set it's max number
+            var intnrToGuess = new Random().Next(MaxValue);
+            
+            // Write the welcome text to the console, pass along the MaxValue
+            WriteWelcome(MaxValue);
+            
+            // Main loop
             while (true)
             {
+                // Output that we want the user to give a command or guess
                 Console.Write("Enter command or guess: ");
+                // Read whatever the user typed in, store it in variable Response
                 var Response = Console.ReadLine().ToLower();
-                if (Response == "?") //User wants the help text
+                // Check what command was given or if it was a guess
+                if (Response == "?")
                 {
+                    // User wants the help text, call the WriteHelpText method
                     WriteHelpText();
                 }
-                else if (Response == "changemax") //User wants to change the max value, thus increasing the difficulty
+                // User wants to change the max value, thus increasing the difficulty
+                else if (Response == "changemax") 
                 {
+                    // User wants to change the maximum value.
+                    // It calls the ChangeMaxValue function and adds 1 to the returned value
                     MaxValue = ChangeMaxValue() + 1;
-                    Console.WriteLine($"Maximum number changed to: {intnrToGuess}\nCurrent guess is unaffected!");
+                    // Give the user confirmation that the MaxValue has been changed
+                    Console.WriteLine($"Maximum number changed to: {intnrToGuess}");
+                    // Inform the user that the current guess is unaffected
+                    Console.WriteLine("Current guess is unaffected!");
                 }
                 else if (Response == "clear")
                 {
+                    // User wants to clear the console window.
+                    // WriteWelcome clears it and re-writes the welcome text
                     WriteWelcome(MaxValue);
                 }
                 else if (Response == "exit")
                 {
+                    // User wants to quit the game
                     break;
+                }
+                else if (Response == "igu")
+                {
+                    // Output the current number to the console, used to test (or cheat :P)
+                    Console.WriteLine($"The current number is: {intnrToGuess}");
+                }
+                else if (Response == "showmax")
+                {
+                    // Output the current max value to the console
+                    Console.WriteLine($"The current Max value is: {MaxValue}");
                 }
                 else
                 {
-                    //Was not a command, assume it was a guess.
+                    // Was not a command, assume it was a guess.
                     try
                     {
                         var guess = Convert.ToInt16(Response);
 
                         if (guess == intnrToGuess)
                         {
-                            Console.WriteLine(
-                                $"Correct, I was thinking of the number: {guess}\nPlease try to find the new number I am thinking off");
-                            intnrToGuess = new Random().Next(MaxValue); //Randomize a new number
-                            //For debug purposes
-                            //Console.WriteLine($"The number became: {intnrToGuess}");
+                            Console.WriteLine($"Correct, I was thinking of the number: {guess}");
+                            Console.WriteLine("Please try to find the new number I am thinking off");
+                            // Randomize a new number
+                            intnrToGuess = new Random().Next(MaxValue);
                         }
                         else if (guess > intnrToGuess)
                         {
-                            Console.WriteLine("To hige");
+                            // The guess was to high, notify the user
+                            Console.WriteLine("To high");
                         }
                         else if (guess < intnrToGuess)
                         {
+                            // The guess was to low, notify the user
                             Console.WriteLine("To low");
                         }
                     }
                     catch (Exception)
                     {
+                        // The user entered a invalid command
                         Console.WriteLine("Invalid command entered!");
                     }
                 }
@@ -74,12 +102,14 @@ namespace NumberGuessing
         /// <param name="CurrMaxVal"></param>
         private static void WriteWelcome(int CurrMaxVal)
         {
+            // Clear the console,
             Console.Clear();
-            //Welcome the user
-            Console.WriteLine(
-                $"Welcome!\nIn this game you will have to guess a number\nAt start, It's currently set to 0 to {CurrMaxVal - 1}\n" +
-                "You can change the max value with a command\n" +
-                "For help, type: ?");
+            // Welcome the user
+            Console.WriteLine("Welcome!");
+            Console.WriteLine("In this game you will have to guess a number");
+            Console.WriteLine($"At start, It's currently set to 0 to {CurrMaxVal - 1}");
+            Console.WriteLine("You can change the max value with a command");
+            Console.WriteLine("For help, type: ?");
         }
 
         /// <summary>
@@ -106,8 +136,11 @@ namespace NumberGuessing
         /// </summary>
         private static void WriteHelpText()
         {
-            Console.WriteLine("Valid commands are:\nclear = Clears the text and re-writes the welcome text\n" +
-                              "changemax = Allows for changing the max value, only accepts number\nexit = Exits the game");
+            Console.WriteLine("Valid commands are:");
+            Console.WriteLine("clear = Clears the text and re-writes the welcome text");
+            Console.WriteLine("changemax = Allows for changing the max value, only accepts number");
+            Console.WriteLine("showmax = Shows what the current Maxvalue is");
+            Console.WriteLine("exit = Exits the game");
         }
     }
 }
