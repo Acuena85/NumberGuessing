@@ -25,15 +25,15 @@ namespace NumberGuessing
                 // Output that we want the user to give a command or guess
                 Console.Write("Enter command or guess: ");
                 // Read whatever the user typed in, store it in variable Response
-                var Response = Console.ReadLine().ToLower();
+                var response = Console.ReadLine().ToLower();
                 // Check what command was given or if it was a guess
-                if (Response == "?")
+                if (response == "?")
                 {
                     // User wants the help text, call the WriteHelpText method
                     WriteHelpText();
                 }
                 // User wants to change the max value, thus increasing the difficulty
-                else if (Response == "changemax") 
+                else if (response == "changemax") 
                 {
                     // User wants to change the maximum value.
                     // It calls the ChangeMaxValue function and adds 1 to the returned value
@@ -43,23 +43,23 @@ namespace NumberGuessing
                     // Inform the user that the current guess is unaffected
                     Console.WriteLine("Current guess is unaffected!");
                 }
-                else if (Response == "clear")
+                else if (response == "clear")
                 {
                     // User wants to clear the console window.
                     Console.Clear();
                 }
-                else if (Response == "exit")
+                else if (response == "exit")
                 {
                     // User wants to quit the game
                     break;
                 }
-                else if (Response == "igu")
+                else if (response == "igu")
                 {
                     // Output the current number to the console, used to test (or cheat :P)
                     Console.WriteLine($"The current number is: {intnrToGuess}");
                     iguUsed = true;
                 }
-                else if (Response == "showmax")
+                else if (response == "showmax")
                 {
                     // Output the current max value to the console
                     Console.WriteLine($"The current Max value is: { maxValue - 1} ");
@@ -69,7 +69,7 @@ namespace NumberGuessing
                     // Was not a command, assume it was a guess.
                     try
                     {
-                        var guess = Convert.ToInt16(Response);
+                        var guess = Convert.ToInt16(response);
 
                         if (guess == intnrToGuess)
                         {
